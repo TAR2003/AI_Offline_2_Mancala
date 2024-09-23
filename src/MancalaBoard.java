@@ -66,22 +66,21 @@ public class MancalaBoard {
 
         int numberofstones = getValueBoard(player, position - 1);
         setValueBoard(player, position - 1, 0);
-        int difference = 7 - position;
-        int initialposition = position;
-        for (int i = initialposition; i < 6; i++) {
+        for (int i = position; i < 6; i++) {
             if (numberofstones > 0) {
                 // if remaining stones are more than 0, then add a stone in every remaining boards
                 setValueBoard(player, i, getValueBoard(player, i) + 1);
                 numberofstones--;
+                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
+                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
+                    setValueBoard(otherPlayer(player), 5-i, 0);
+                    setValueBoard(player, i, 0);
+                    return false; // if the last stone is not in the player's place, then return false
+                    // if the last stone is in the blank position in players own board and there is
+                    // stones in the other player's side, then all the stones from both of the boards will be added to players collection
+                }
             }
-            if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
-                setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
-                setValueBoard(otherPlayer(player), 5-i, 0);
-                setValueBoard(player, i, 0);
-                return false; // if the last stone is not in the player's place, then return false
-                // if the last stone is in the blank position in players own board and there is
-                // stones in the other player's side, then all of the stones from both of the boards will be added to players collection
-            }
+
         }
         if (numberofstones > 0) {
             setStones(player, getStones(player) + 1);
@@ -105,15 +104,16 @@ public class MancalaBoard {
                 // if remaining stones are more than 0, then add a stone in every remaining boards
                 setValueBoard(player, i, getValueBoard(player, i) + 1);
                 numberofstones--;
+                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
+                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
+                    setValueBoard(otherPlayer(player), 5-i, 0);
+                    setValueBoard(player, i, 0);
+                    return false; // if the last stone is not in the player's place, then return false
+                    // if the last stone is in the blank position in players own board and there is
+                    // stones in the other player's side, then all the stones from both of the boards will be added to players collection
+                }
             }
-            if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
-                setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
-                setValueBoard(otherPlayer(player), 5-i, 0);
-                setValueBoard(player, i, 0);
-                return false; // if the last stone is not in the player's place, then return false
-                // if the last stone is in the blank position in players own board and there is
-                // stones in the other player's side, then all of the stones from both of the boards will be added to players collection
-            }
+
         }
         if (numberofstones > 0) {
             setStones(player, getStones(player) + 1);

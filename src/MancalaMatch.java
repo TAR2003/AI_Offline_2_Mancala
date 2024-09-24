@@ -44,7 +44,7 @@ public class MancalaMatch {
         int move = mancalaPlayer.getMove();
         boolean b = mancalaBoard.moveBoard(mancalaPlayer.getPlayerno(), move);
         // System.out.println("B value " + b + " mancalaplayerno" + mancalaPlayer.getPlayerno() + " move=" + move);
-         mancalaBoard.printBoard();
+        // mancalaBoard.printBoard();
         int status = checkWinning();
         if (status == 2) {
             System.out.println("Match tied");

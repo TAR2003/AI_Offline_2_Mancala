@@ -11,11 +11,11 @@ public class Main {
         weights.add(0);
         weights.add(0);
         MancalaPlayer mancalaPlayer1 = new MancalaPlayer(mancalaBoard, weights,2);
-        MancalaPlayer mancalaPlayer2 = new Player(mancalaBoard, weights,2 );
-        MancalaMatch mancalaMatch = new MancalaMatch(mancalaPlayer1, mancalaPlayer2);
+        MancalaPlayer mancalaPlayer2 = new MancalaPlayer(mancalaBoard, weights,2 );
+        System.out.println("Printing");
+        System.out.println(mancalaPlayer1.getMove());
+      //  MancalaMatch mancalaMatch = new MancalaMatch(mancalaPlayer1, mancalaPlayer2);
         System.out.println("Process completed successfully");
-
-
 
     }
 }

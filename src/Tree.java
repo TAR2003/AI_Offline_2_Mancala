@@ -20,7 +20,7 @@ public class Tree {
         node.setAlpha(Integer.MIN_VALUE);
         node.setBeta(Integer.MAX_VALUE);
         node.expandNode(this.depth);
-        return node.getBestChoice();
+        return node.getBestChoice().getOrder();
     }
 
 

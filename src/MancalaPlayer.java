@@ -29,7 +29,7 @@ public class MancalaPlayer {
 
         int move = random.nextInt(6);
         Tree tree = new Tree(mancalaBoard, this, this.depth, weights);
-        return tree.bestChoice;
+        return tree.findMostImportantNode();
     }
 }
 

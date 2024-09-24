@@ -22,14 +22,8 @@ public class MancalaPlayer {
     }
     public int getMove() {
 
-        // int move = random.nextInt(6);
         int move = random.nextInt(6);
 
-//        for(int i = 0 ; i  < 5; i++) {
-//            if(mancalaBoard.getValueBoard(this.getPlayerno(), i) > 0) {
-//                return i + 1;
-//            }
-//        }
         return move + 1;
     }
 }

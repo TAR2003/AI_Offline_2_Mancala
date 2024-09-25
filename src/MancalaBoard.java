@@ -71,9 +71,9 @@ public class MancalaBoard {
                 // if remaining stones are more than 0, then add a stone in every remaining boards
                 setValueBoard(player, i, getValueBoard(player, i) + 1);
                 numberofstones--;
-                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
-                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
-                    setValueBoard(otherPlayer(player), 5-i, 0);
+                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5 - i) > 0) {
+                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5 - i));
+                    setValueBoard(otherPlayer(player), 5 - i, 0);
                     setValueBoard(player, i, 0);
                     return false; // if the last stone is not in the player's place, then return false
                     // if the last stone is in the blank position in players own board and there is
@@ -89,7 +89,7 @@ public class MancalaBoard {
                 return true; // the last stone is in the players collection, thus player will get another turn
             }
         }
-        for (int i = 0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             // remaining stones now will be given to the opposite side
             if (numberofstones > 0) {
                 setValueBoard(otherPlayer(player), i, getValueBoard(otherPlayer(player), i) + 1);
@@ -104,9 +104,9 @@ public class MancalaBoard {
                 // if remaining stones are more than 0, then add a stone in every remaining boards
                 setValueBoard(player, i, getValueBoard(player, i) + 1);
                 numberofstones--;
-                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5-i) > 0) {
-                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5-i));
-                    setValueBoard(otherPlayer(player), 5-i, 0);
+                if (numberofstones == 0 && getValueBoard(player, i) == 1 && getValueBoard(otherPlayer(player), 5 - i) > 0) {
+                    setStones(player, getStones(player) + 1 + getValueBoard(otherPlayer(player), 5 - i));
+                    setValueBoard(otherPlayer(player), 5 - i, 0);
                     setValueBoard(player, i, 0);
                     return false; // if the last stone is not in the player's place, then return false
                     // if the last stone is in the blank position in players own board and there is
@@ -122,7 +122,7 @@ public class MancalaBoard {
                 return true; // the last stone is in the players collection, thus player will get another turn
             }
         }
-        for (int i = 0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             // remaining stones now will be given to the opposite side
             if (numberofstones > 0) {
                 setValueBoard(otherPlayer(player), i, getValueBoard(otherPlayer(player), i) + 1);
@@ -149,9 +149,15 @@ public class MancalaBoard {
 
     int totalStonesInSide(int player) {
         int sum = 0;
-        for(int i = 0 ; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             sum += getValueBoard(player, i);
         }
         return sum;
+    }
+
+    boolean isEmpty(int player) {
+        int temp = newMancalaBoard().totalStonesInSide(player);
+        return temp == 0;
+
     }
 }

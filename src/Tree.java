@@ -16,11 +16,14 @@ public class Tree {
     }
 
     public int findMostImportantNode() {
-        Node node = new MaxNode(mancalaBoard, mancalaPlayer, 0, this.weights);
+        Node node = new MaxNode(mancalaBoard, mancalaPlayer, 0, this.weights, depth);
         node.setAlpha(Integer.MIN_VALUE);
         node.setBeta(Integer.MAX_VALUE);
-        node.expandNode(this.depth);
-        return node.getBestChoice().getOrder();
+        node.expandNode();
+       // System.out.println(node.expandNode());
+      //  System.out.println(node.getAlpha());
+      //  System.out.println(node.getBeta());
+        return node.getBestChoice();
     }
 
 

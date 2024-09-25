@@ -26,10 +26,10 @@ public class MancalaPlayer {
 
     }
     public int getMove() {
-
-        int move = random.nextInt(6);
         Tree tree = new Tree(mancalaBoard, this, this.depth, weights);
-        return tree.findMostImportantNode();
+        int move =  tree.findMostImportantNode();
+        System.out.println("The player with player number " + this.getPlayerno() + " has selected the move  " + move);
+        return move;
     }
 }
 

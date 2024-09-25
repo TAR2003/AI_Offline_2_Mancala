@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class Node{
+public class Node {
 
     public int getAdditionalMoves() {
         return additionalMoves;
@@ -23,12 +23,13 @@ public class Node{
         this.stonesCaptured = stonesCaptured;
     }
 
-    public int getValue() {return this.value;}
+    public int getValue() {
+        return this.value;
+    }
+
     public int getValueOfBoard() {
-
-
         return this.valueOfBoard;
-          }
+    }
 
     public void setValue(int value) {
         this.value = value;
@@ -61,7 +62,7 @@ public class Node{
     public int stonesCaptured;
     int alpha;
     int beta;
-
+    // setting the value of the board based on the heuristics
     public void setValueOfBoard() {
         int myStoneNo = mancalaBoard.getStones(mancalaPlayer.getPlayerno());
         int opponentStoneNo = mancalaBoard.getStones(mancalaBoard.otherPlayer(mancalaPlayer.getPlayerno()));
@@ -84,15 +85,20 @@ public class Node{
         this.depth = depth;
         this.weights = weights; // passing the weights
         this.setValue(Integer.MIN_VALUE); // initializing the value with the lowest value possible
-        this.setValueOfBoard();
-      //  System.out.println("New Node added ");
-      //  this.mancalaBoard.printBoard();
+        this.setValueOfBoard(); // setting the value of the node using the heuristics arraylist weights
+
     }
 
-    public int performMove(int position) { return 0; } // performing move in any position, child node overrides this method
-    public int expandNode() {return 0;}
-    public void handleValue(int value) {
+    public int performMove(int position) {
+        return 0;
+    } // performing move in any position, child node overrides this method
+
+    public int expandNode() {
+        return 0; // it will be overridden by its child classes
     }
+
+    public void handleValue(int value) {
+    } // overridden by its child classes
 
 
 }

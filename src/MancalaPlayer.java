@@ -26,13 +26,14 @@ public class MancalaPlayer {
 
     }
     public int getMove() {
-        Tree tree = new Tree(mancalaBoard, this, this.depth, weights);
-        int move =  tree.findMostImportantNode();
+        Tree tree = new Tree(mancalaBoard, this, this.depth, weights); // building the tree for the current situation
+        int move =  tree.findMostImportantNode(); // geting waht will be the most imporant move from the tree using heuristics
         System.out.println("The Automatic player with player number " + this.getPlayerno() + " has selected the move  " + move);
-        return move;
+        return move; // returning the move pc just made
     }
 }
 
+// this class is for User, it takes move from console input
 class Player extends MancalaPlayer {
     public Scanner scanner;
     public Player(MancalaBoard mancalaBoard, ArrayList<Integer> weights, int depth) {
@@ -40,41 +41,21 @@ class Player extends MancalaPlayer {
         scanner = new Scanner(System.in);
     }
     public int getMove() {
-        mancalaBoard.printFromPerspective(this.getPlayerno());
+        mancalaBoard.printFromPerspective(this.getPlayerno()); // show the mancala board state in the console
         System.out.println("This is your turn:=");
         int move;
         while(true) {
             System.out.print("Please enter a number between 1 - 6:=  ");
             move = scanner.nextInt();
             if(move > 0 && move < 7) {
-                break;
+                break; // validating the move
             }
             else {
                 System.out.println("Invalid input, " + move + " is not valid");
             }
         }
 
-        scanner.nextLine();
         return move;
     }
 }
 
-/*
-    Mancala Player is the AI that will play mancala after calculating its best move
-    Mancala Player class will get the board state for any situation of a mancala match from the class
-    Then it will make 6 calculations first
-    All of them are selecting a node and then calculating it
-    Then it will set them in a priority queue
-    It will expand the element with the most promise first, then the others
-    The same will go with them too, they will enqueue them in their queue, and expand the most important ones first
-    After reaching the depth we need, we will calculate the important informations about the heuristics
-    Then we will send the alpha and beta values back to the parent node
-    We will prune every node when alpha >= beta
-    we will continue till the end for the parent node
-    Then we will give our turn
-    If our turn results in another bonus turn, we will calculate it in the same node
-    Only after our turns are over and it is the turn for the opposite player, we will start another node for minNode
-    when returning,we will send the minValue for maxNodes and the maxValue for the minNodes
-
-
- */

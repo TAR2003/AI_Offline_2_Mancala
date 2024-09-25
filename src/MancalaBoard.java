@@ -3,16 +3,17 @@ public class MancalaBoard {
     int[] playerOneBoard, playerTwoBoard;
 
     public MancalaBoard() {
-        playerOneBoard = new int[6];
-        playerTwoBoard = new int[6];
+        playerOneBoard = new int[6]; // player 1's side
+        playerTwoBoard = new int[6]; // player 2's side
         for (int i = 0; i < 6; i++) {
             playerOneBoard[i] = 4;
-            playerTwoBoard[i] = 4;
+            playerTwoBoard[i] = 4; // setting all the board values to 4
             playerOneStones = 0;
-            playerTwoStones = 0;
+            playerTwoStones = 0; // setting all the storage to 0
         }
     }
 
+    // for copying a mancala board
     MancalaBoard newMancalaBoard() {
         MancalaBoard mn = new MancalaBoard();
         mn.playerTwoStones = this.playerTwoStones;
@@ -23,7 +24,7 @@ public class MancalaBoard {
         }
         return mn;
     }
-
+    // set the value of a particular board for a particular player
     void setValueBoard(int player, int position, int value) {
         if (player == 0) {
             playerOneBoard[position] = value;
@@ -31,7 +32,7 @@ public class MancalaBoard {
             playerTwoBoard[position] = value;
         }
     }
-
+    // get the value of a particular board for a particular player
     int getValueBoard(int player, int position) {
         if (player == 0) {
             return playerOneBoard[position];
@@ -39,7 +40,7 @@ public class MancalaBoard {
             return playerTwoBoard[position];
         }
     }
-
+    // set the total stones number for a particular player
     void setStones(int player, int value) {
         if (player == 0) {
             playerOneStones = value;
@@ -47,7 +48,7 @@ public class MancalaBoard {
             playerTwoStones = value;
         }
     }
-
+    // get the total stones number for a particular player
     int getStones(int player) {
         if (player == 0) {
             return playerOneStones;
@@ -55,7 +56,7 @@ public class MancalaBoard {
             return playerTwoStones;
         }
     }
-
+    // get the player no of the other player
     int otherPlayer(int player) {
         return (player + 1) % 2;
     }
@@ -132,7 +133,8 @@ public class MancalaBoard {
 
         return false;
     }
-
+    //print from the perspective of the user
+    // used for showing the user current state of the mancala board when user vs pc game is going on
     void printFromPerspective(int player) {
         String dash = "----------------------------------------------------------------------------------";
         System.out.println(dash);
@@ -180,7 +182,7 @@ public class MancalaBoard {
         System.out.println(this.getPaddedString("Player 0 Stones", 14));
 
         System.out.println(dash);
-        System.out.print(this.getPaddedString(String.valueOf(this.getStones(this.otherPlayer(player))), 30));
+        System.out.print(this.getPaddedString(String.valueOf(this.getStones(this.otherPlayer(player))), 20));
         System.out.print(" || ");
         for(int i = 0 ; i < 6 ; i++) {
             int v = this.getValueBoard(player, i);
@@ -200,12 +202,13 @@ public class MancalaBoard {
         }
         return sum;
     }
-
+    // to show if the total stones for a particular player's side is 0
     boolean isEmpty(int player) {
         int temp = newMancalaBoard().totalStonesInSide(player);
         return temp == 0;
 
     }
+    // to show the state of the current mancala board situation eye soothingly
     private String getPaddedString(String str, int size) {
         int length = str.length();
         int totalpadding = size - length;

@@ -17,13 +17,11 @@ public class Tree {
 
     public int findMostImportantNode() {
         Node node = new MaxNode(mancalaBoard, mancalaPlayer, 0, this.weights, depth);
-        node.setAlpha(Integer.MIN_VALUE);
-        node.setBeta(Integer.MAX_VALUE);
+        node.setAlpha(Integer.MIN_VALUE); // starting alpha value with minimum integer value possible
+        node.setBeta(Integer.MAX_VALUE); // starting the beta value with the maximum integer value possible
         node.expandNode();
-       // System.out.println(node.expandNode());
-      //  System.out.println(node.getAlpha());
-      //  System.out.println(node.getBeta());
-        return node.getBestChoice();
+
+        return node.getBestChoice(); // returning the best choice right currently
     }
 
 

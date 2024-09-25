@@ -28,7 +28,7 @@ public class MancalaPlayer {
     public int getMove() {
         Tree tree = new Tree(mancalaBoard, this, this.depth, weights);
         int move =  tree.findMostImportantNode();
-        System.out.println("The player with player number " + this.getPlayerno() + " has selected the move  " + move);
+        System.out.println("The Automatic player with player number " + this.getPlayerno() + " has selected the move  " + move);
         return move;
     }
 }
@@ -40,7 +40,20 @@ class Player extends MancalaPlayer {
         scanner = new Scanner(System.in);
     }
     public int getMove() {
-        int move = scanner.nextInt();
+        mancalaBoard.printFromPerspective(this.getPlayerno());
+        System.out.println("This is your turn:=");
+        int move;
+        while(true) {
+            System.out.print("Please enter a number between 1 - 6:=  ");
+            move = scanner.nextInt();
+            if(move > 0 && move < 7) {
+                break;
+            }
+            else {
+                System.out.println("Invalid input, " + move + " is not valid");
+            }
+        }
+
         scanner.nextLine();
         return move;
     }

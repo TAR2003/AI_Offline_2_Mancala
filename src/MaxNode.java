@@ -21,7 +21,7 @@ class MaxNode extends Node {
             return this.getValueOfBoard();
         }
         for (int i = 1; i <= 6; i++) {
-          //  System.out.println("Expanding max node at position " + i);
+
             int getPitNo = mancalaBoard.getValueBoard(mancalaPlayer.getPlayerno(), i - 1);
             if(getPitNo == 0) continue;
             int temp = this.performMove(i);
@@ -32,7 +32,7 @@ class MaxNode extends Node {
                 this.setBestChoice(i);
             }
             if (this.getAlpha() >= this.getBeta()) {
-                //System.out.println("Other msx nodes are pruned");
+
                 return this.getValue();
             }
         }
@@ -45,16 +45,14 @@ class MaxNode extends Node {
         boolean b;
         int addCoins;
         addCoins = mancalaBoard.getStones(mancalaPlayer.getPlayerno());
-       // System.out.println("Chaging from this");
-       // mancalaBoard.printBoard();
+
         b = mancalaBoard.moveBoard(mancalaPlayer.getPlayerno(), position);
         addCoins = mancalaBoard.getStones(mancalaPlayer.getPlayerno()) - addCoins;
         if (b) {
             Node node1 = new MaxNode(mancalaBoard, mancalaPlayer, this.additionalMoves + 1, weights, this.depth);
             node1.setAlpha(this.alpha);
             node1.setBeta(this.beta);
-           // System.out.println("after move");
-         //   mancalaBoard.printBoard();
+
             return node1.expandNode();
         } else {
             Node node = new MinNode(mancalaBoard, mancalaPlayer, this.additionalMoves, weights, this.depth - 1);
@@ -63,8 +61,7 @@ class MaxNode extends Node {
             }
             node.setAlpha(this.alpha);
             node.setBeta(this.beta);
-           // System.out.println("after move");
-        //    mancalaBoard.printBoard();
+
             return node.expandNode();
         }
 

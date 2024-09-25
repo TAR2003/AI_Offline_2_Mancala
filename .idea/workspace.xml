@@ -12,8 +12,6 @@
       <change beforePath="$PROJECT_DIR$/src/MancalaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MancalaPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MaxNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MaxNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

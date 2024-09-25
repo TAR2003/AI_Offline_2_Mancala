@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.util.Random;
 
 public class MancalaMatch {
@@ -5,6 +6,16 @@ public class MancalaMatch {
     public MancalaBoard mancalaBoard;
     int pos1, pos2;
     int status;
+
+    public BufferedWriter getBw() {
+        return bw;
+    }
+
+    public void setBw(BufferedWriter bw) {
+        this.bw = bw;
+    }
+
+    BufferedWriter bw;
 
     public MancalaMatch(MancalaPlayer mancalaPlayer1, MancalaPlayer mancalaPlayer2) {
         this.mancalaPlayer1 = mancalaPlayer1;
@@ -15,22 +26,26 @@ public class MancalaMatch {
         this.mancalaPlayer2.setPlayerno(pos2);
         this.mancalaPlayer1.setPlayerno(pos1);
         this.mancalaBoard = this.mancalaPlayer1.mancalaBoard;
-        status = this.startPlay();
-        if(status == 2) {
-            System.out.println("The match is tied, sorry");
-            //System.out.println("Final state of the board:=");
-         //   mancalaBoard.printBoard();
-        }
-        System.out.println("Mancala player 1 got:= " + mancalaBoard.getStones(mancalaPlayer1.getPlayerno()));
-        System.out.println("Mancala player 2 got:= " + mancalaBoard.getStones(mancalaPlayer2.getPlayerno()));
+
+
     }
 
-    public int startPlay() {
+    public void startPlay() {
+        System.out.println();
+        System.out.println("--------------------- The game is starting right now ---------------------");
         if (this.mancalaPlayer1.getPlayerno() == 0) {
-            return makeMove(this.mancalaPlayer1);
+           status = makeMove(this.mancalaPlayer1);
         } else {
-            return makeMove(this.mancalaPlayer2);
+            status = makeMove(this.mancalaPlayer2);
         }
+        if (status == 2) {
+            System.out.println("The match is tied, sorry");
+        }
+        System.out.println("Mancala player " + mancalaPlayer1.getPlayerno() + " got:= " + mancalaBoard.getStones(mancalaPlayer1.getPlayerno()));
+        System.out.println("Mancala player " + mancalaPlayer2.getPlayerno() + " got:= " + mancalaBoard.getStones(mancalaPlayer2.getPlayerno()));
+        System.out.println("The situation of the mancala board after finishing:=");
+        mancalaBoard.printBoard();
+        System.out.println();
     }
 
     public int checkWinning() {
@@ -42,31 +57,21 @@ public class MancalaMatch {
             return -1;
         } else if ((this.mancalaBoard.getStones(this.mancalaPlayer1.getPlayerno()) == 24) && (this.mancalaBoard.getStones(this.mancalaPlayer2.getPlayerno()) == 24)) {
             mancalaBoard.printBoard();
-            System.out.println("____It is the currebnt status of the board");
+            System.out.println("The match is tied");
             return 2;
         }
-//         else {
-//            System.out.println("Mancala game has ended as there is no valid move for the player");
-//            return 3;
-//        }
         return 0;
     }
 
     public int makeMove(MancalaPlayer mancalaPlayer) {
 
-        System.out.println("Turn for the player  "+ mancalaPlayer.getPlayerno());
         int move = mancalaPlayer.getMove();
-        System.out.println("Turn for pplayer " + mancalaPlayer.getPlayerno());
-        System.out.println("Player has selected the move " + move);
-        if(move == 0) {
+        if (move == 0) {
             return makeMove((mancalaPlayer == mancalaPlayer1) ? mancalaPlayer2 : mancalaPlayer1);
         }
-        System.out.println("|Befrie boarc mve");
-        mancalaBoard.printBoard();
+
         boolean b = mancalaBoard.moveBoard(mancalaPlayer.getPlayerno(), move);
-        // System.out.println("B value " + b + " mancalaplayerno" + mancalaPlayer.getPlayerno() + " move=" + move);
-        System.out.println("Aftert the board move");
-         mancalaBoard.printBoard();
+        mancalaBoard.printBoard();
         int status = checkWinning();
         if (status != 0) {
             return status;
@@ -78,5 +83,15 @@ public class MancalaMatch {
             }
 
         }
+    }
+    public void randomMove() {
+        System.out.println("Giving one random move before starting pc vs pc");
+        Random random = new Random();
+        int player = random.nextInt(2);
+        MancalaPlayer mancalaPlayer;
+        if(player == 0) mancalaPlayer = mancalaPlayer1;
+        else mancalaPlayer = mancalaPlayer2;
+        int move = random.nextInt(6);
+        mancalaBoard.moveBoard(mancalaPlayer.getPlayerno(), move + 1);
     }
 }

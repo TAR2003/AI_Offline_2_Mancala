@@ -133,18 +133,64 @@ public class MancalaBoard {
         return false;
     }
 
+    void printFromPerspective(int player) {
+        String dash = "----------------------------------------------------------------------------------";
+        System.out.println(dash);
+        System.out.println(dash);
+        System.out.print(this.getPaddedString("Opponents Stones", 20));
+        System.out.print(" || ");
+        for(int i = 5 ; i >= 0 ; i--) {
+            int v = this.getValueBoard(this.otherPlayer(player), i);
+
+            System.out.print(this.getPaddedString(String.valueOf(v), 4));
+
+        }
+        System.out.print(" || ");
+        System.out.println(this.getPaddedString("Your Stones", 14));
+
+        System.out.println(dash);
+        System.out.print(this.getPaddedString(String.valueOf(this.getStones(this.otherPlayer(player))), 20));
+        System.out.print(" || ");
+        for(int i = 0 ; i < 6 ; i++) {
+            int v = this.getValueBoard(player, i);
+            System.out.print(this.getPaddedString(String.valueOf(v), 4));
+
+        }
+        System.out.print(" || ");
+        System.out.println(this.getPaddedString(String.valueOf(this.getStones(player)), 14));
+        System.out.println(dash);
+        System.out.println(dash);
+    }
+
     // for printing the mancala board
     void printBoard() {
-        System.out.println("Player two:= " + playerTwoStones);
-        for (int i = 5; i >= 0; i--) {
-            System.out.print(playerTwoBoard[i] + " ");
+        int player = 0;
+        String dash = "----------------------------------------------------------------------------------";
+        System.out.println(dash);
+        System.out.println(dash);
+        System.out.print(this.getPaddedString("Player 1 Stones", 20));
+        System.out.print(" || ");
+        for(int i = 5 ; i >= 0 ; i--) {
+            int v = this.getValueBoard(this.otherPlayer(player), i);
+
+            System.out.print(this.getPaddedString(String.valueOf(v), 4));
+
         }
-        System.out.println();
-        for (int i = 0; i < 6; i++) {
-            System.out.print(playerOneBoard[i] + " ");
+        System.out.print(" || ");
+        System.out.println(this.getPaddedString("Player 0 Stones", 14));
+
+        System.out.println(dash);
+        System.out.print(this.getPaddedString(String.valueOf(this.getStones(this.otherPlayer(player))), 30));
+        System.out.print(" || ");
+        for(int i = 0 ; i < 6 ; i++) {
+            int v = this.getValueBoard(player, i);
+            System.out.print(this.getPaddedString(String.valueOf(v), 4));
+
         }
-        System.out.println();
-        System.out.println("Player one:= " + playerOneStones);
+        System.out.print(" || ");
+        System.out.println(this.getPaddedString(String.valueOf(this.getStones(player)), 14));
+        System.out.println(dash);
+        System.out.println(dash);
     }
 
     int totalStonesInSide(int player) {
@@ -159,5 +205,14 @@ public class MancalaBoard {
         int temp = newMancalaBoard().totalStonesInSide(player);
         return temp == 0;
 
+    }
+    private String getPaddedString(String str, int size) {
+        int length = str.length();
+        int totalpadding = size - length;
+        int padding1 = totalpadding / 2;
+        int padding2 = totalpadding - padding1;
+        return " ".repeat(Math.max(0, padding1)) +
+                str +
+                " ".repeat(Math.max(0, padding2));
     }
 }

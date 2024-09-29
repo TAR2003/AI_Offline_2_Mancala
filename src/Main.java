@@ -1,15 +1,16 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
+        Random random = new Random();
         int depth = 5; // specifying the depth we want to search
         ArrayList<Integer> version1weights = getArrayList(1, 0, 0, 0);
-        ArrayList<Integer> version2weights = getArrayList(2, 1, 0, 0);
-        ArrayList<Integer> version3weights = getArrayList(3, 2, 1, 0);
-        ArrayList<Integer> version4weights = getArrayList(4, 3, 2, 1);
+        ArrayList<Integer> version2weights = getArrayList(300, 1, 0, 0);
+        ArrayList<Integer> version3weights = getArrayList(300, 1, 1, 0);
+        ArrayList<Integer> version4weights = getArrayList(300, 1, 1, 1);
         ArrayList<ArrayList<Integer>> allweights = new ArrayList<>(4);
         allweights.add(version1weights);
         allweights.add(version2weights);
@@ -32,10 +33,12 @@ public class Main {
                 int one = 0, two = 0, ties = 0;
                 for (int k = 0; k < 100; k++) {
                     MancalaBoard mancalaBoard = new MancalaBoard();
-                    MancalaPlayer mancalaPlayer1 = new MancalaPlayer(mancalaBoard, allweights.get(i), depth);
-                    MancalaPlayer mancalaPlayer2 = new MancalaPlayer(mancalaBoard, allweights.get(j), depth);
+                    int dpth = random.nextInt(6);
+                    dpth++;
+                    MancalaPlayer mancalaPlayer1 = new MancalaPlayer(mancalaBoard, allweights.get(i), dpth);
+                    MancalaPlayer mancalaPlayer2 = new MancalaPlayer(mancalaBoard, allweights.get(j), dpth);
                     MancalaMatch mancalaMatch = new MancalaMatch(mancalaPlayer1, mancalaPlayer2);
-                    mancalaMatch.randomMove(); // a random move to see their response
+                    // mancalaMatch.randomMove(); // a random move to see their response
                     mancalaMatch.startPlay();
                     if (mancalaMatch.status == 1) one++;
                     else if (mancalaMatch.status == -1) two++;

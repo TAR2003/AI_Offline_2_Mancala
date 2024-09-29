@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 class MinNode extends Node {
 
-    public MinNode(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, ArrayList<Integer> weights, int depth) {
-        super(mancalaBoard, mancalaPlayer, additionalMoves, weights, depth);
+    public MinNode(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, int capturedStones, ArrayList<Integer> weights, int depth) {
+        super(mancalaBoard, mancalaPlayer, additionalMoves, capturedStones, weights, depth);
 
     }
 
@@ -23,7 +23,8 @@ class MinNode extends Node {
         for (int i = 1; i <= 6; i++) {
 
             int getPitNo = mancalaBoard.getValueBoard(mancalaBoard.otherPlayer(mancalaPlayer.getPlayerno()), i - 1);
-            if (getPitNo == 0) continue; // opponent's mancala board at position i is 0, so we skip it as it is not possible
+            if (getPitNo == 0)
+                continue; // opponent's mancala board at position i is 0, so we skip it as it is not possible
             int temp = this.performMove(i); // getting the most suitable value from performing in i position
             int prevBestValue = this.getValue(); // storing the previous best
             this.handleValue(temp); // changing the beta value according to child nodes output values
@@ -37,6 +38,7 @@ class MinNode extends Node {
         }
         return this.getValue(); // returning the most suitable value after expanding all the possible nodes
     }
+
     // perform a move on the mancala board and expand
     public int performMove(int position) {
         MancalaBoard mancalaBoard = this.mancalaBoard.newMancalaBoard();
@@ -48,15 +50,16 @@ class MinNode extends Node {
         addCoins = mancalaBoard.getStones(mancalaBoard.otherPlayer(mancalaPlayer.getPlayerno())) - addCoins; // finding how much stone number is increased for the opponent
 
         if (b) { // opponent will get a bonus move for that choice
-            Node node1 = new MinNode(mancalaBoard, mancalaPlayer, this.additionalMoves, weights, this.depth); // keeps the same depth
+            Node node1 = new MinNode(mancalaBoard, mancalaPlayer, this.additionalMoves - 1, this.capturedStones, weights, this.depth); // keeps the same depth
+
             node1.setAlpha(this.alpha);
             node1.setBeta(this.beta); // passing the alpha beta values
 
             return node1.expandNode(); // returning the most suitable value possible
         } else { // opponent will not get a bonnus move
-            Node node = new MaxNode(mancalaBoard, mancalaPlayer, this.additionalMoves, weights, this.depth - 1); // next move will be a max node as it will be the player's move
+            Node node = new MaxNode(mancalaBoard, mancalaPlayer, this.additionalMoves, this.capturedStones, weights, this.depth - 1); // next move will be a max node as it will be the player's move
             if (addCoins > 1) { // if the stone increase is more than 1, then opponent has captured some of the stones at my side as well
-                node.setStonesCaptured(-(addCoins - 1)); // set the captured stones values, minus because it is for the opponent
+                node.setStonesCaptured(this.capturedStones - (addCoins - 1)); // set the captured stones values, minus because it is for the opponent
             }
             node.setAlpha(this.alpha);
             node.setBeta(this.beta); // passing the alpha beta values

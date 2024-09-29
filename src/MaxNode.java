@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 class MaxNode extends Node {
 
-    public MaxNode(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, ArrayList<Integer> weights, int depth) {
-        super(mancalaBoard, mancalaPlayer, additionalMoves, weights, depth);
+    public MaxNode(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, int capturedStones,   ArrayList<Integer> weights, int depth) {
+        super(mancalaBoard, mancalaPlayer, additionalMoves,capturedStones, weights, depth);
 
     }
 
@@ -51,16 +51,17 @@ class MaxNode extends Node {
         addCoins = mancalaBoard.getStones(mancalaPlayer.getPlayerno()) - addCoins; // getting how much stones has increased in this step
         if (b) {
             // the player will get a bonus turn, so build another max node with the same depth and calculate its most suitable value
-            Node node1 = new MaxNode(mancalaBoard, mancalaPlayer, this.additionalMoves + 1, weights, this.depth);
+            Node node1 = new MaxNode(mancalaBoard, mancalaPlayer, this.additionalMoves + 1, this.capturedStones, weights, this.depth);
+
             node1.setAlpha(this.alpha);
             node1.setBeta(this.beta); // passing the alpha beta values
 
             return node1.expandNode(); // returning the most suitable value that could provide
         } else {
             // the turn will be now given to the opponent, so a min node is necessary with depth of one less than the current node
-            Node node = new MinNode(mancalaBoard, mancalaPlayer, this.additionalMoves, weights, this.depth - 1);
+            Node node = new MinNode(mancalaBoard, mancalaPlayer, this.additionalMoves,this.capturedStones, weights, this.depth - 1);
             if (addCoins > 1) {
-                node.setStonesCaptured(addCoins - 1); // if the stones has increased more than 1, then we have captured stones from the opponent's side as well
+                node.setStonesCaptured(addCoins - 1 + this.capturedStones); // if the stones has increased more than 1, then we have captured stones from the opponent's side as well
             }
             node.setAlpha(this.alpha);
             node.setBeta(this.beta); // passing the alpha beta values

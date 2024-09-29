@@ -52,6 +52,7 @@ public class Node {
     }
 
     int additionalMoves;
+    int capturedStones;
     int bestChoice;
     int depth;
     int value;
@@ -70,16 +71,17 @@ public class Node {
         int stoneInMySide = mancalaBoard.totalStonesInSide(mancalaPlayer.getPlayerno());
         int stonesInOpponentSide = mancalaBoard.totalStonesInSide(mancalaBoard.otherPlayer(mancalaPlayer.getPlayerno()));
         int sideStoneDifference = stoneInMySide - stonesInOpponentSide;
-        int valueOfBoard = (this.weights.get(0) * stoneDifference + this.weights.get(1) * sideStoneDifference + this.weights.get(2) * this.getAdditionalMoves() + this.weights.get(3) * this.getStonesCaptured());
+        this.valueOfBoard = (this.weights.get(0) * stoneDifference + this.weights.get(1) * sideStoneDifference + this.weights.get(2) * this.getAdditionalMoves() + this.weights.get(3) * this.getStonesCaptured());
 
-        this.valueOfBoard = valueOfBoard;
     }
 
     int valueOfBoard;
 
 
-    public Node(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, ArrayList<Integer> weights, int depth) {
+    public Node(MancalaBoard mancalaBoard, MancalaPlayer mancalaPlayer, int additionalMoves, int capturedStones, ArrayList<Integer> weights, int depth) {
         this.additionalMoves = additionalMoves;
+        this.capturedStones = capturedStones;
+        this.setStonesCaptured(capturedStones);
         this.mancalaPlayer = mancalaPlayer;
         this.mancalaBoard = mancalaBoard;
         this.depth = depth;
